@@ -54,6 +54,11 @@ RuleSet: OwnerPatient
 * owner = Reference(PatientBSJ1) "Betsy Smith-Johnson"
 
 // PA RuleSets
+RuleSet: Identifier(value)
+* identifier[+]
+  * value = "{value}"
+  * system = "http://example.org/Identifiers"
+
 RuleSet: Note(time, author, authorName, note)
 * note[+]
   * authorReference = Reference({author}) {authorName}
@@ -89,8 +94,8 @@ RuleSet: CarePlan(start, end, author, authorName, detail)
 
 RuleSet: Goal(status, description)
 * insert SubjectPatient
-* lifecycleStatus = #active
-* achievementStatus = $goal-achievement#{status}
+* lifecycleStatus = #{status}
+* achievementStatus = $goal-achievement#in-progress
 * description.text = "{description}"
 
 RuleSet: GoalTarget(due, loinc, display, quantity)
@@ -98,6 +103,16 @@ RuleSet: GoalTarget(due, loinc, display, quantity)
   * measure = $loinc#{loinc} {display}
   * detailQuantity = {quantity}
   * dueDate = "{due}"
+
+RuleSet: GoalTargetSnomed(due, snomed, display, quantity)
+* target
+  * measure = $sct#{snomed} {display}
+  * detailQuantity = {quantity} ''
+  * dueDate = "{due}"
+
+RuleSet: GoalAddresses(condition, display)
+* addresses = Reference({condition}) 
+  * display = "{display}"
 
 RuleSet: GoalTargetMinWeek(due, quantityNum)
 * insert GoalTarget({due}, 82290-8, "Frequency of moderate to vigorous aerobic physical activity", {quantityNum} 'min/wk')
@@ -204,7 +219,7 @@ RuleSet: DiagnosticReport(performer, performerName, code, display, order, start,
 
 
 // Bundle RuleSets
-RuleSet: SearchBundle
+RuleSet: TxnBundle
 * type = #transaction
 
 RuleSet: TxnEntry(type, resourceId)
@@ -213,6 +228,13 @@ RuleSet: TxnEntry(type, resourceId)
   * resource = {resourceId}
   * request.method = #POST
   * request.url = "http://example.org/fhir/{type}/{resourceId}"
+
+RuleSet: TxnEntryCond(type, resourceId, identifier)
+* entry[+]
+  * fullUrl = "http://example.org/fhir/{type}/{resourceId}"
+  * resource = {resourceId}
+  * request.method = #PUT
+  * request.url = "http://example.org/fhir/{type}?identifier={identifier}"
 
 RuleSet: TxnEntryObs(resourceId)
 * insert TxnEntry(Observation, {resourceId})
