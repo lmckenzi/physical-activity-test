@@ -1,0 +1,60 @@
+-------------------------------------------------------------------------------------
+{"code" : {
+  "system" : "http://hl7.org/fhir/sid/icd-10-cm",
+  "code" : "Z72.3",
+  "display" : "Lack of physical exercise"
+}, "valueSet" :null, "langs":"", "useServer":"true", "useClient":"false", "guessSystem":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "terminology-settings",
+  "meta" : {
+    "versionId" : "4",
+    "lastUpdated" : "2021-11-14T22:34:54.002+00:00",
+    "source" : "#nbTM7DayIuyKgO4R"
+  },
+  "parameter" : [{
+    "name" : "system-version",
+    "valueUri" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  }]
+}}####
+v: {
+  "display" : "Lack of physical exercise",
+  "code" : "Z72.3",
+  "system" : "http://hl7.org/fhir/sid/icd-10-cm",
+  "version" : "2024",
+  "server" : "http://tx.fhir.org/r4",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "system" : "http://hl7.org/fhir/sid/icd-10-cm",
+  "code" : "R53.0",
+  "display" : "Neoplastic (malignant) related fatigue"
+}, "valueSet" :null, "langs":"", "useServer":"true", "useClient":"false", "guessSystem":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "terminology-settings",
+  "meta" : {
+    "versionId" : "4",
+    "lastUpdated" : "2021-11-14T22:34:54.002+00:00",
+    "source" : "#nbTM7DayIuyKgO4R"
+  },
+  "parameter" : [{
+    "name" : "system-version",
+    "valueUri" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  }]
+}}####
+v: {
+  "display" : "Neoplastic (malignant) related fatigue",
+  "code" : "R53.0",
+  "system" : "http://hl7.org/fhir/sid/icd-10-cm",
+  "version" : "2024",
+  "server" : "http://tx.fhir.org/r4",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------

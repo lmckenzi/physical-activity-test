@@ -1,0 +1,15 @@
+{
+  "package-id" : "hl7.fhir.us.physical-activity-test",
+  "version" : "1.0.0-ballot",
+  "milestone" : true,
+	"path": "http://hl7.org/fhir/us/physical-activity-test/2024May",
+  "status" : "draft",
+  "mode" : "milestone",
+  "sequence" : "2024 May",
+  "desc" : "STU 1.0",
+  "first": true,
+  "title": "Physical Activity Tests",
+  "introduction": "Foo",
+  "ci-build": "https://build.fhir.org/ig/HL7/physical-activity-test",
+  "category": "other"
+}

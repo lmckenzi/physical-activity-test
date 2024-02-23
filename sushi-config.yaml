@@ -1,0 +1,54 @@
+name: PhysicalActivityTest
+title: Physical Activity PACIO Test Data IG
+id: physical-activity-test
+extension:
+  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status
+    valueCode: draft
+  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm
+    valueInteger: 0
+  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-wg
+    valueCode: pc
+packageId: hl7.fhir.us.physical-activity-test
+canonical: http://hl7.org/fhir/us/physical-activity-test
+version: 1.0.0-ballot
+fhirVersion: 4.0.1
+status: draft
+date: 2024-02-22
+copyrightYear: 2024+
+releaseLabel: Feb 2024 Event
+jurisdiction: urn:iso:std:iso:3166#US
+publisher:
+  name: HL7 International / Patient Care
+  url: http://www.hl7.org/Special/committees/patientcare
+dependencies:
+  hl7.fhir.us.physical-activity:
+    id: pa
+    version: 1.0.0
+    reason: |
+      Defines the profiles to validate same data against
+  hl7.fhir.us.core:
+    id: uscore
+    version: 3.1.1
+    reason: |
+      Tests use US Core too
+description: "This implementation guide defines test data for PACIO testing events using physical activity data."
+parameters:
+  path-expansion-params: "../../input/terminology-settings.xml"
+  path-liquid: "liquid"
+  apply-contact: false
+  apply-publisher: false
+  default-contact: true
+  default-publisher: true
+  globals-in-artifacts: true
+instanceOptions:
+  setMetaProfile: never
+  manualSliceOrdering: true
+pages:
+  index.xml:
+    title: Overview
+    artifacts.xml: 
+      title: IG Artifacts
+menu:
+  Contents: toc.html
+  Home: index.html
+  Artifacts: artifacts.html

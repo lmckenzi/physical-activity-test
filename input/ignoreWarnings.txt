@@ -1,0 +1,7 @@
+== Suppressed Messages ==
+
+# This code doesn't fall under concepts in the US Core list
+None of the codings provided are in the value set 'Observation Category Codes' (http://hl7.org/fhir/ValueSet/observation-category|4.0.1), and a coding is recommended to come from this value set) (codes = http://hl7.org/fhir/us/physical-activity/CodeSystem/pa-temporary-codes#PhysicalActivity)
+
+# The vital sign profile doesn't declare two of the categories we use, and that's ok
+This element does not match any known slice defined in the profile http://hl7.org/fhir/StructureDefinition/heartrate|4.0.1 (this may not be a problem, but you should check that it's not intended to match a slice)
