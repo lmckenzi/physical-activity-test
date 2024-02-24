@@ -1,48 +1,21 @@
 // Background instances (presume these already exist with the specified ids)
 
-Instance: PatientBSJ1
-InstanceOf: USCorePatientProfile
-Title: "Betsy Smith-Johnson"
-Description: "Betsy Smith-Johnson"
-Usage: #example
-* name.text = "Betsy Smith-Johnson"
-* gender = #female
-* identifier.value = "123"
-* identifier.system = "http:/test.org"
-
-Instance: PractitionerAnitaChu
-InstanceOf: USCorePractitionerProfile
-Title: "Anita Chu, MD"
-Description: "Anita Chu, MD"
-Usage: #example
-* identifier.value = "ABC"
-* identifier.system = "http:/test.org"
-* name.family = "Chu"
-
-Instance: OT-ProblemList-RightWeak
-InstanceOf: USCoreCondition
-Title:       "Condition - Right-side weakness"
-Description:  "BSJ RightWeak"
-Usage: #example
-* insert Condition(PractitionerAnitaChu, [[Anita Chu\, MD]], $sct#570961000124101, [[Weakness of right upper limb (finding)]], 2024-01-01)
-
 // Transactions (what we will actually import with)
 
-Instance: BSJ-Visit1
+Instance: BSJ-tx1-setup
 InstanceOf: Bundle
-Title:       "Initial Visit Bundle"
-Description:  "BSJ resources created in first visit - 2023-10-25"
+Title:       "Txn 1 - Initial Set-up Bundle"
+Description:  "Pre-existing resources"
 Usage: #example
 * insert TxnBundle
-* insert TxnEntry(Condition, BSJ-PACondition)
-* insert TxnEntry(Condition, BSJ-FatigueCondition)
-* insert TxnEntry(Goal, BSJ-PA-AerobicGoal1)
-* insert TxnEntry(Goal, BSJ-PA-FatigueGoal1)
-* insert TxnEntry(Goal, BSJ-PA-StrengthGoal1)
+* insert TxnEntry(Patient, PatientBSJ1)
+* insert TxnEntry(Practitioner, PractitionerAnitaChu)
+* insert TxnEntry(Condition, OT-ProblemList-RightWeak)
+* insert TxnEntry(Condition, BSJ-HemiparesisDiagnosis)
 
-Instance: BSJ-Home
+Instance: BSJ-tx2-Home
 InstanceOf: Bundle
-Title:       "Home data capture Bundle"
+Title:       "Txn 2 - Home data capture Bundle"
 Description:  "BSJ resources created by patient at home (pre-stroke) - 2023-11-03"
 Usage: #example
 * insert TxnBundle
@@ -54,9 +27,21 @@ Usage: #example
 * insert TxnEntryObs(BSJ-PA-Support5)
 * insert TxnEntryObs(BSJ-PA-Support6)
 
-Instance: BSJ-Visit2
+Instance: BSJ-txn3-Visit1
 InstanceOf: Bundle
-Title:       "Second Visit Bundle"
+Title:       "Txn 3 - Initial Visit Bundle"
+Description:  "BSJ resources created in first visit - 2023-10-25"
+Usage: #example
+* insert TxnBundle
+* insert TxnEntry(Condition, BSJ-PACondition)
+* insert TxnEntry(Condition, BSJ-FatigueCondition)
+* insert TxnEntry(Goal, BSJ-PA-AerobicGoal)
+* insert TxnEntry(Goal, BSJ-PA-FatigueGoal)
+* insert TxnEntry(Goal, BSJ-PA-StrengthGoal)
+
+Instance: BSJ-txn4-Visit2
+InstanceOf: Bundle
+Title:       "Txn 4 - Second Visit Bundle"
 Description:  "BSJ resources created in second visit (post stroke) - 2023-12-18.  Must be imported after Visit1 Bundle"
 Usage: #example
 * insert TxnBundle
@@ -64,9 +49,9 @@ Usage: #example
 * insert TxnEntryCond(Goal, BSJ-PA-FatigueGoal2, BSJ-PA-FatigueGoal2)
 * insert TxnEntryCond(Goal, BSJ-PA-StrengthGoal2, BSJ-PA-StrengthGoal)
 
-Instance: BSJ-Visit3
+Instance: BSJ-txn5-Visit3
 InstanceOf: Bundle
-Title:       "Third Visit Bundle"
+Title:       "Txn 5 - Third Visit Bundle"
 Description:  "BSJ resources created in second visit (post stroke) - 2023-12-18.  Must be imported after Visit2 Bundle"
 Usage: #example
 * insert TxnBundle
@@ -74,6 +59,42 @@ Usage: #example
 * insert TxnEntryCond(Goal, BSJ-PA-FatigueGoal3, BSJ-PA-FatigueGoal)
 * insert TxnEntryCond(Goal, BSJ-PA-StrengthGoal3, BSJ-PA-StrengthGoal)
 * insert TxnEntry(Goal, BSJ-PA-PowerGoal)
+
+// Pre-existing / set-up resources
+
+Instance: PatientBSJ1
+InstanceOf: USCorePatientProfile
+Title: "Betsy Smith-Johnson"
+Description: "Betsy Smith-Johnson"
+Usage: #example
+* name.text = "Betsy Smith-Johnson"
+* gender = #female
+* insert Identifier(PatientBSJ1)
+
+Instance: PractitionerAnitaChu
+InstanceOf: USCorePractitionerProfile
+Title: "Anita Chu, MD"
+Description: "Anita Chu, MD"
+Usage: #example
+* insert Identifier(PractitionerAnitaChu)
+* name.family = "Chu"
+
+Instance: OT-ProblemList-RightWeak
+InstanceOf: USCoreCondition
+Title:       "Condition - Right-side weakness"
+Description:  "BSJ RightWeak"
+Usage: #example
+* insert Condition(PractitionerAnitaChu, [[Anita Chu\, MD]], $sct#570961000124101, [[Weakness of right upper limb (finding)]], 2023-12-16T13:30:00-05:00)
+* insert Identifier(OT-ProblemList-RightWeak)
+
+Instance: BSJ-HemiparesisDiagnosis
+InstanceOf: USCoreCondition
+Title:       "Condition - Hemiparesis"
+Description:  "BSJ Hemiparesis"
+Usage: #example
+* insert Condition(PractitionerAnitaChu, [[Anita Chu\, MD]], $sct#278286009, [[Right hemiparesis (disorder)]], 2023-12-16T13:30:00-05:00)
+* insert Identifier(BSJ-HemiparesisDiagnosis)
+
 
 
 // Data to load
@@ -94,11 +115,12 @@ Description:  "BSJ Fatigue"
 Usage: #example
 * insert Condition(PractitionerAnitaChu, [[Anita Chu\, MD]], $ICD10#R53.0, [[Neoplastic (malignant) related fatigue]], 2022-09-18)
 * evidence.detail = Reference(BSJ-PA-Support5)
+// Paul - how is support 5 evidence for fatigue?
 
-Instance:       BSJ-PA-AerobicGoal1
+Instance:       BSJ-PA-AerobicGoal
 InstanceOf:     PAGoal
-Title:          "BSJ-PA-AerobicGoal1"
-Description:    "BSJ-PA-AerobicGoal1"
+Title:          "BSJ-PA-AerobicGoal"
+Description:    "BSJ-PA-AerobicGoal"
 * insert Goal(active, [[Working with the Exercise Program, gradually increase your weekly exercise to at least 150 minutes/week of moderate to vigorous physical activity.]])
 * insert Identifier(BSJ-PA-AerobicGoal)
 * insert GoalTargetMinWeek(2024-01-26, 150)
@@ -125,10 +147,10 @@ Description:    "BSJ-PA-AerobicGoal3"
 * insert NoteGP(2023-12-18, [[Goal on hold due to stroke hospitalization]])
 * insert NoteGP(2024-01-24, [[Goal due date re-established for end of new 12-week exercise program]])
 
-Instance:       BSJ-PA-FatigueGoal1
+Instance:       BSJ-PA-FatigueGoal
 InstanceOf:     PAGoal
-Title:          "BSJ-PA-FatigueGoal1"
-Description:    "BSJ-PA-FatigueGoal1"
+Title:          "BSJ-PA-FatigueGoal"
+Description:    "BSJ-PA-FatigueGoal"
 * insert Goal(active, [[Working with the Exercise Program to increase overall physical activity,\\ improve Fatigue Assessment Scale score by at least 4 points.]])
 * insert Identifier(BSJ-PA-FatigueGoal)
 * insert GoalTargetSnomed(2024-01-26, 445784002, "Assessment using fatigue impact scale", 16)
@@ -170,10 +192,10 @@ Description:    "BSJ-PA-PowerGoal"
 * insert GoalAddresses(OT-ProblemList-RightWeak, [[Physical deconditioning]])
 * insert NoteGP(2024-01-24, [[Goal due date is based on 12-week exercise oncology program]])
 
-Instance:       BSJ-PA-StrengthGoal1
+Instance:       BSJ-PA-StrengthGoal
 InstanceOf:     PAGoal
-Title:          "BSJ-PA-StrengthGoal1"
-Description:    "BSJ-PA-StrengthGoal1"
+Title:          "BSJ-PA-StrengthGoal"
+Description:    "BSJ-PA-StrengthGoal"
 * insert Goal(active, [[Working with the Exercise Program,\\ increase your weekly exercise muscle strengthening exercises to at least two (2) days/week.]])
 * insert Identifier(BSJ-PA-StrengthGoal)
 * insert GoalTarget(2024-01-26, 82291-6, "Frequency of muscle-strengthening physical activity", 2 'd/wk')

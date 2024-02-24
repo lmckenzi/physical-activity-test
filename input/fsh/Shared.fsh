@@ -117,106 +117,6 @@ RuleSet: GoalAddresses(condition, display)
 RuleSet: GoalTargetMinWeek(due, quantityNum)
 * insert GoalTarget({due}, 82290-8, "Frequency of moderate to vigorous aerobic physical activity", {quantityNum} 'min/wk')
 
-RuleSet: ExerciseReferral(start, end, author, authorName, code, display)
-* insert SubjectPatient
-* status = #active
-* intent = #order
-* priority = #routine
-* code = {code} "{display}"
-* requester = Reference({author}) {authorName}
-* authoredOn = "{start}"
-* occurrencePeriod
-  * start = "{start}"
-  * end = "{end}"
-
-RuleSet: ExerciseRx(start, end, author, authorName)
-* insert PerformerPatient
-* insert ExerciseReferral({start}, {end}, {author}, {authorName}, $sct#229065009, [[Exercise therapy (regime/therapy)]])
-
-RuleSet: FulfillTask(requester, requesterName, owner, ownerName, order, status, date)
-* insert ForPatient
-* status = #{status}
-* intent = #order
-* code = $task-code#fulfill
-* focus = Reference({order})
-* requester = Reference({requester}) {requesterName}
-* authoredOn = "{date}"
-* owner = Reference({owner}) {ownerName}
-
-RuleSet: QuestionnaireTask(requester, requesterName, priority, date, status, canonical, description)
-* insert ForPatient
-* insert OwnerPatient
-* status = #{status}
-* intent = #order
-* priority = #{priority}
-* code = $SDC-Temp#complete-questionnaire
-* description = "{description}"
-* authoredOn = {date}
-* requester = Reference({requester}) {requesterName}
-* input[Questionnaire].valueCanonical = "{canonical}"
-
-RuleSet: ReviewTask(requester, requesterName, priority, date, status, content, description)
-* insert ForPatient
-* insert OwnerPatient
-* status = #{status}
-* intent = #order
-* priority = #{priority}
-* code = $SDOHCC-Temp#review-material
-* focus = Reference({content})
-* description = "{description}"
-* authoredOn = {date}
-* requester = Reference({requester}) {requesterName}
-
-RuleSet: DocRefVideo(url)
-* status = #current
-* content[+]
-  * attachment
-    * contentType = #video/mp4
-    * url = "{url}"
-
-RuleSet: Questionnaire(url, version)
-* url = "{url}"
-* version = "{version}"
-* status = #active
-* subjectType = #Patient
-
-RuleSet: Question(linkId, type, text)
-* item[+]
-  * linkId = "{linkId}"
-  * text = "{text}"
-  * type = #{type}
-
-RuleSet: QuestionnaireResponse(date, questionnaire)
-* insert SubjectPatient
-* status = #completed
-* questionnaire = "{questionnaire}"
-* authored = {date}
-
-RuleSet: BooleanAnswer(linkId, answer, text)
-* item[+]
-  * linkId = "{linkId}"
-  * text = "{text}"
-  * answer.valueBoolean = {answer}
-
-RuleSet: StringAnswer(linkId, answer, text)
-* item[+]
-  * linkId = "{linkId}"
-  * text = "{text}"
-  * answer.valueString = {answer}
-
-RuleSet: DiagnosticReport(performer, performerName, code, display, order, start, end, base64)
-* insert SubjectPatient
-* basedOn = Reference({order})
-* status = #final
-* code = {code} {display}
-* effectivePeriod
-  * start = "{start}"
-  * end   = "{end}"
-* performer = Reference({performer}) {performerName}
-* presentedForm
-  * contentType = #application/pdf
-  * data = {base64}
-
 
 // Bundle RuleSets
 RuleSet: TxnBundle
@@ -227,14 +127,14 @@ RuleSet: TxnEntry(type, resourceId)
   * fullUrl = "http://example.org/fhir/{type}/{resourceId}"
   * resource = {resourceId}
   * request.method = #POST
-  * request.url = "http://example.org/fhir/{type}/{resourceId}"
+  * request.url = "{type}"
 
 RuleSet: TxnEntryCond(type, resourceId, identifier)
 * entry[+]
   * fullUrl = "http://example.org/fhir/{type}/{resourceId}"
   * resource = {resourceId}
   * request.method = #PUT
-  * request.url = "http://example.org/fhir/{type}?identifier={identifier}"
+  * request.url = "{type}?identifier={identifier}"
 
 RuleSet: TxnEntryObs(resourceId)
 * insert TxnEntry(Observation, {resourceId})

@@ -152,7 +152,7 @@ Instance:       BSJ-PA-Supporting57-7
 InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting57-7"
 Description:    "BSJ-PA-Supporting57-7"
-* insert ActivityExperience(2023-11-29, 6, "")
+* insert ActivityExperience(2023-11-29, 1, "Fairly Good")
 
 Instance:       BSJ-PA-Supporting57-8
 InstanceOf:     PAObservationActivityMeasure
@@ -215,7 +215,7 @@ Instance:       BSJ-PA-Supporting58-7
 InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting58-7"
 Description:    "BSJ-PA-Supporting58-7"
-* insert ActivityExperience(2023-11-29, 6, "")
+* insert ActivityExperience(2023-11-29, 1, "Fairly Good")
 
 Instance:       BSJ-PA-Supporting58-8
 InstanceOf:     PAObservationActivityMeasure
@@ -279,7 +279,7 @@ Instance:       BSJ-PA-Supporting59-7
 InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting59-7"
 Description:    "BSJ-PA-Supporting59-7"
-* insert ActivityExperience(2023-11-29, 6, "")
+* insert ActivityExperience(2023-11-29, -1, "Fairly Bad")
 
 Instance:       BSJ-PA-Supporting59-8
 InstanceOf:     PAObservationActivityMeasure

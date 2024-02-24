@@ -40,6 +40,8 @@ parameters:
   default-contact: true
   default-publisher: true
   globals-in-artifacts: true
+  excludexml: true
+  excludettl: true
 instanceOptions:
   setMetaProfile: never
   manualSliceOrdering: true

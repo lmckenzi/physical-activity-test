@@ -96,19 +96,6 @@ InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting1-6"
 Description:    "BSJ-PA-Supporting1-6"
 * insert MeanHeartRate(2023-11-03, 80)
-/*
-Instance:       BSJ-PA-Supporting1-7
-InstanceOf:     PAObservationActivityMeasure
-Title:          "BSJ-PA-Supporting1-7"
-Description:    "BSJ-PA-Supporting1-7"
-* insert ActivityExperience(2023-11-03, 3, "Good")
-
-Instance:       BSJ-PA-Supporting1-8
-InstanceOf:     PAObservationActivityMeasure
-Title:          "BSJ-PA-Supporting1-8"
-Description:    "BSJ-PA-Supporting1-8"
-* insert ActivityCalories(2023-11-03, 000)
-*/
 
 
 Instance:       BSJ-PA-Supporting2
@@ -165,7 +152,7 @@ Instance:       BSJ-PA-Supporting2-7
 InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting2-7"
 Description:    "BSJ-PA-Supporting2-7"
-* insert ActivityExperience(2023-11-03, 3, "Good")
+* insert ActivityExperience(2023-11-03, -2, "")
 
 Instance:       BSJ-PA-Supporting2-8
 InstanceOf:     PAObservationActivityMeasure
@@ -173,19 +160,6 @@ Title:          "BSJ-PA-Supporting2-8"
 Description:    "BSJ-PA-Supporting2-8"
 * insert ActivityCalories(2023-11-03, 80)
 
-
-/*
-For activity type, if code is LL734-5, then that means 'other exercise', which is coded like this: 
-* insert ActivityTypeOther(2023-11-03, [[Free Weights]])
-
-For Activity experience, Paul didn't fill in codes.  You can look up the codes and their displays here:
-https://build.fhir.org/ig/HL7/physical-activity/ValueSet-pa-feeling-scale.html
-
-Some codes have no displays, in which case you'll represent it like this:
-* insert ActivityExperience(2023-11-03, 4, "")
-
-Any other questions, ask :)
-*/
 
 Instance:       BSJ-PA-Supporting3
 InstanceOf:     PAObservationActivityGroup
@@ -241,7 +215,7 @@ Instance:       BSJ-PA-Supporting3-7
 InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting3-7"
 Description:    "BSJ-PA-Supporting3-7"
-* insert ActivityExperience(2023-11-03, 4, "")
+* insert ActivityExperience(2023-11-03, -1, "Fairly Bad")
 
 Instance:       BSJ-PA-Supporting3-8
 InstanceOf:     PAObservationActivityMeasure
@@ -305,7 +279,7 @@ Instance:       BSJ-PA-Supporting4-7
 InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting4-7"
 Description:    "BSJ-PA-Supporting4-7"
-* insert ActivityExperience(2023-11-03, 2, "")
+* insert ActivityExperience(2023-11-03, -3, "Bad")
 
 Instance:       BSJ-PA-Supporting4-8
 InstanceOf:     PAObservationActivityMeasure
