@@ -362,4 +362,3 @@ Title:          "BSJ-PA-Supporting5-6"
 Description:    "BSJ-PA-Supporting5-6"
 * insert MeanHeartRate(2023-11-03, 80)
 
-I

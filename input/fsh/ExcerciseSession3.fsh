@@ -82,7 +82,7 @@ Instance:       BSJ-PA-Supporting11-4
 InstanceOf:     PAObservationActivityMeasure
 Title:          "BSJ-PA-Supporting11-4"
 Description:    "BSJ-PA-Supporting11-4"
-* insert ActivityVigorous(2023-11-08, 0)Supporting2
+* insert ActivityVigorous(2023-11-08, 0)
 
 Instance:       BSJ-PA-Supporting11-5
 InstanceOf:     PAObservationActivityMeasure
@@ -336,4 +336,3 @@ Title:          "BSJ-PA-Supporting15-6"
 Description:    "BSJ-PA-Supporting15-6"
 * insert MeanHeartRate(2023-11-08, 83)
 
-I
