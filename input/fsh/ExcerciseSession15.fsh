@@ -1,4 +1,9 @@
-RuleSet: Session15
+Instance: Session15
+InstanceOf: Bundle
+Title:       "Exercise Session 15"
+Description:  "Exercise Session 15"
+Usage: #example
+* insert TxnBundle
 * insert TxnEntryObs(BSJ-PA-Supporting71)
 * insert TxnEntryObs(BSJ-PA-Supporting71-1)
 * insert TxnEntryObs(BSJ-PA-Supporting71-2)
