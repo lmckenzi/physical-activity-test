@@ -47,7 +47,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Wed, Feb 21, 2024 22:27+0000 for FHIR v6.0.0-cibuild 
+  Generated on Mon, Feb 26, 2024 20:36+0000 for FHIR v6.0.0-cibuild 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="6.0.0-cibuild">
   <!-- Note: When using this schema with some tools, it may also be necessary to declare xmlns:xml="http://www.w3.org/XML/1998/namespace", however this causes performance issues with other tools and thus is not in the base schemas. -->
@@ -13862,6 +13862,11 @@ If a pattern[x] is declared on a repeating element, the pattern applies to all r
     <xs:complexContent>
       <xs:extension base="DataType">
         <xs:sequence>
+          <xs:element name="period" type="Period" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The period of time when the availability is applicable.  For example, you might use this property to indicate the period during the holiday season when you close an hour early.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="availableTime" type="Availability.AvailableTime" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">A collection of times that the {item} is available.</xs:documentation>
@@ -21283,7 +21288,7 @@ of the resource representation.</xs:documentation>
               <xs:documentation xml:lang="en">Date the charge item was entered.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="reason" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+          <xs:element name="reason" minOccurs="0" maxOccurs="unbounded" type="CodeableReference">
             <xs:annotation>
               <xs:documentation xml:lang="en">Describes why the event occurred in coded or textual form.</xs:documentation>
            </xs:annotation>
@@ -21461,6 +21466,11 @@ of the resource representation.</xs:documentation>
           <xs:element name="date" minOccurs="0" maxOccurs="1" type="dateTime">
             <xs:annotation>
               <xs:documentation xml:lang="en">The date  (and optionally time) when the charge item definition was last significantly changed. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the charge item definition changes.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en"> A set of candidate accounts to which charge items using this definition may be assigned.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="publisher" minOccurs="0" maxOccurs="1" type="string">
@@ -52138,12 +52148,12 @@ For resource issues, this will be a simple XPath limited to element names, repet
   </xs:complexType>
   <xs:element name="Patient" type="Patient">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal receiving care or other health-related services.</xs:documentation>
+      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal that is the subject of potential, past, current, or future health-related care, services, or processes.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="Patient">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal receiving care or other health-related services.</xs:documentation>
+      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal that is the subject of potential, past, current, or future health-related care, services, or processes.</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -52244,7 +52254,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="Patient.Contact">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal receiving care or other health-related services.</xs:documentation>
+      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal that is the subject of potential, past, current, or future health-related care, services, or processes.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -52290,7 +52300,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="Patient.Communication">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal receiving care or other health-related services.</xs:documentation>
+      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal that is the subject of potential, past, current, or future health-related care, services, or processes.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -52311,7 +52321,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="Patient.Link">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal receiving care or other health-related services.</xs:documentation>
+      <xs:documentation xml:lang="en">Demographics and other administrative information about an individual or animal that is the subject of potential, past, current, or future health-related care, services, or processes.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -54245,12 +54255,17 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="organization" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The organization where the Practitioner performs the roles associated.</xs:documentation>
+              <xs:documentation xml:lang="en">The organization where the Practitioner is available to perform the roles associated.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="code" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
               <xs:documentation xml:lang="en">Roles which this practitioner is authorized to perform for the organization.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="name" minOccurs="0" maxOccurs="1" type="string">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A name that describes the intersection of the practitioner, organization, and the role of the practitioner within the organization.  This is not the human name of the practitioner, though the textual representation of that human name may be a part of this property.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="specialty" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">

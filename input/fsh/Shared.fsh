@@ -66,7 +66,7 @@ RuleSet: Note(time, author, authorName, note)
   * text = "{note}"
 
 RuleSet: NoteGP(time, note)
-* insert Note({time}, PractitionerAnitaChu, "Anita Chu\, MD", {note})
+* insert Note({time}, Practitioner-AnitaChu, "Anita Chu\, MD", {note})
 
 RuleSet: ConditionPA(asserter, asserterName, onset)
 * insert SubjectPatient
@@ -126,15 +126,16 @@ RuleSet: TxnEntry(type, resourceId)
 * entry[+]
   * fullUrl = "http://example.org/fhir/{type}/{resourceId}"
   * resource = {resourceId}
-  * request.method = #POST
-  * request.url = "{type}"
+  * request.method = #PUT
+  * request.url = "{type}/{resourceId}"
 
 RuleSet: TxnEntryCond(type, resourceId, identifier)
 * entry[+]
-  * fullUrl = "http://example.org/fhir/{type}/{resourceId}"
+  * fullUrl = "http://example.org/fhir/{type}/{identifier}"
   * resource = {resourceId}
+//  * resource.id = {identifier}
   * request.method = #PUT
-  * request.url = "{type}?identifier={identifier}"
+  * request.url = "{type}/{identifier}"
 
 RuleSet: TxnEntryObs(resourceId)
 * insert TxnEntry(Observation, {resourceId})
@@ -153,6 +154,14 @@ RuleSet: ObservationPeriod(performer, performerName, start, end)
   * start = "{start}"
   * end = "{end}"
 * performer = Reference({performer}) {performerName}
+
+// Fatigue
+RuleSet: FatigueObs(effective, value, text)
+* insert Observation({effective})
+* category = $obsCategory#social-history
+* code = $sct#709474002 "Assessment of fatigue"
+* valueQuantity = {value} '' "points"
+* interpretation.text = {text}
 
 // Exercise Vital Sign
 RuleSet: DaysPerWeek(effective, value)

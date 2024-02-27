@@ -1,43 +1,45 @@
+//NOTE - txn4 and txn5 will need to have goal ids updated to not end with "3" or "4"
+
+
 // Background instances (presume these already exist with the specified ids)
 
 // Transactions (what we will actually import with)
 
-Instance: BSJ-tx1-setup
+Instance: BSJ-txn1-setup
 InstanceOf: Bundle
 Title:       "Txn 1 - Initial Set-up Bundle"
 Description:  "Pre-existing resources"
 Usage: #example
 * insert TxnBundle
 * insert TxnEntry(Patient, PatientBSJ1)
-* insert TxnEntry(Practitioner, PractitionerAnitaChu)
+* insert TxnEntry(Practitioner, Practitioner-AnitaChu)
 * insert TxnEntry(Condition, OT-ProblemList-RightWeak)
 * insert TxnEntry(Condition, BSJ-HemiparesisDiagnosis)
 
-Instance: BSJ-tx2-Home
+Instance: BSJ-txn2-Visit1
 InstanceOf: Bundle
-Title:       "Txn 2 - Home data capture Bundle"
-Description:  "BSJ resources created by patient at home (pre-stroke) - 2023-11-03"
-Usage: #example
-* insert TxnBundle
-* insert TxnEntryObs(BSJ-PA-Support)
-* insert TxnEntryObs(BSJ-PA-Support1)
-* insert TxnEntryObs(BSJ-PA-Support2)
-* insert TxnEntryObs(BSJ-PA-Support3)
-* insert TxnEntryObs(BSJ-PA-Support4)
-* insert TxnEntryObs(BSJ-PA-Support5)
-* insert TxnEntryObs(BSJ-PA-Support6)
-
-Instance: BSJ-txn3-Visit1
-InstanceOf: Bundle
-Title:       "Txn 3 - Initial Visit Bundle"
+Title:       "Txn 2 - Initial Visit Bundle"
 Description:  "BSJ resources created in first visit - 2023-10-25"
 Usage: #example
 * insert TxnBundle
+* insert TxnEntryObs(BSJ-PA-EVSdays)
+* insert TxnEntryObs(BSJ-PA-EVSmin)
+* insert TxnEntryObs(BSJ-PA-EVS)
+* insert TxnEntryObs(BSJ-PA-Strength)
+* insert TxnEntryObs(BSJ-PA-Fatigue)
 * insert TxnEntry(Condition, BSJ-PACondition)
 * insert TxnEntry(Condition, BSJ-FatigueCondition)
 * insert TxnEntry(Goal, BSJ-PA-AerobicGoal)
 * insert TxnEntry(Goal, BSJ-PA-FatigueGoal)
 * insert TxnEntry(Goal, BSJ-PA-StrengthGoal)
+
+Instance: BSJ-txn3-Visit2
+InstanceOf: Bundle
+Title:       "Txn 3 - Follow-up visit"
+Description:  "BSJ resources created in second visit - 2023-12-13"
+Usage: #example
+* insert TxnBundle
+* insert TxnEntryObs(BSJ-PA-Fatigue1)
 
 Instance: BSJ-txn4-Visit2
 InstanceOf: Bundle
@@ -52,9 +54,14 @@ Usage: #example
 Instance: BSJ-txn5-Visit3
 InstanceOf: Bundle
 Title:       "Txn 5 - Third Visit Bundle"
-Description:  "BSJ resources created in second visit (post stroke) - 2023-12-18.  Must be imported after Visit2 Bundle"
+Description:  "BSJ resources created in second visit (post stroke) - 2024-01-24.  Must be imported after Visit2 Bundle"
 Usage: #example
 * insert TxnBundle
+* insert TxnEntryObs(BSJ-PA-EVSdays2)
+* insert TxnEntryObs(BSJ-PA-EVSmin2)
+* insert TxnEntryObs(BSJ-PA-EVS2)
+* insert TxnEntryObs(BSJ-PA-Strength2)
+* insert TxnEntryObs(BSJ-PA-Fatigue2)
 * insert TxnEntryCond(Goal, BSJ-PA-AerobicGoal3, BSJ-PA-AerobicGoal)
 * insert TxnEntryCond(Goal, BSJ-PA-FatigueGoal3, BSJ-PA-FatigueGoal)
 * insert TxnEntryCond(Goal, BSJ-PA-StrengthGoal3, BSJ-PA-StrengthGoal)
@@ -71,12 +78,12 @@ Usage: #example
 * gender = #female
 * insert Identifier(PatientBSJ1)
 
-Instance: PractitionerAnitaChu
+Instance: Practitioner-AnitaChu
 InstanceOf: USCorePractitionerProfile
 Title: "Anita Chu, MD"
 Description: "Anita Chu, MD"
 Usage: #example
-* insert Identifier(PractitionerAnitaChu)
+* insert Identifier(Practitioner-AnitaChu)
 * name.family = "Chu"
 
 Instance: OT-ProblemList-RightWeak
@@ -84,7 +91,7 @@ InstanceOf: USCoreCondition
 Title:       "Condition - Right-side weakness"
 Description:  "BSJ RightWeak"
 Usage: #example
-* insert Condition(PractitionerAnitaChu, [[Anita Chu\, MD]], $sct#570961000124101, [[Weakness of right upper limb (finding)]], 2023-12-16T13:30:00-05:00)
+* insert Condition(Practitioner-AnitaChu, [[Anita Chu\, MD]], $sct#570961000124101, [[Weakness of right upper limb (finding)]], 2023-12-16T13:30:00-05:00)
 * insert Identifier(OT-ProblemList-RightWeak)
 
 Instance: BSJ-HemiparesisDiagnosis
@@ -92,30 +99,66 @@ InstanceOf: USCoreCondition
 Title:       "Condition - Hemiparesis"
 Description:  "BSJ Hemiparesis"
 Usage: #example
-* insert Condition(PractitionerAnitaChu, [[Anita Chu\, MD]], $sct#278286009, [[Right hemiparesis (disorder)]], 2023-12-16T13:30:00-05:00)
+* insert Condition(Practitioner-AnitaChu, [[Anita Chu\, MD]], $sct#278286009, [[Right hemiparesis (disorder)]], 2023-12-16T13:30:00-05:00)
 * insert Identifier(BSJ-HemiparesisDiagnosis)
 
 
 
 // Data to load
 
+Instance: BSJ-PA-EVSdays
+InstanceOf: PAObservationEVSDaysPerWeek
+Title:       "Initial EVS Days"
+Description:  "BSJ Days/week initial assessment"
+Usage: #example
+* insert DaysPerWeek(2023-10-25, 0)
+
+Instance: BSJ-PA-EVSmin
+InstanceOf: PAObservationEVSMinutesPerDay
+Title:       "Initial EVS Days"
+Description:  "BSJ Min/Day initial assessment"
+Usage: #example
+* insert MinPerDay(2023-10-25, 0)
+
+Instance: BSJ-PA-EVS
+InstanceOf: PAObservationEVSMinutesPerWeek
+Title:       "Initial EVS Minutes"
+Description:  "BSJ Minutes/week initial assessment"
+Usage: #example
+* insert MinPerWeek(2023-10-25, 0)
+* derivedFrom = Reference(BSJ-PA-EVSdays)
+* derivedFrom = Reference(BSJ-PA-EVSmin)
+
+Instance: BSJ-PA-Strength
+InstanceOf: PAObservationStrengthDaysPerWeek
+Title:       "Initial EVS Strength"
+Description:  "BSJ Strength/week initial assessment"
+Usage: #example
+* insert StrengthPerWeek(2023-10-25, 0)
+
+Instance: BSJ-PA-Fatigue
+InstanceOf: Observation
+Title:       "Initial Fatigue"
+Description:  "BSJ Fatigue Score initial assessment"
+Usage: #example
+* insert FatigueObs(2023-10-25, 35, "Extreme Fatigue")
+
 Instance: BSJ-PACondition
 InstanceOf: PAConditionLowPA
 Title:       "Condition - BSJ Low Physical Activity"
 Description:  "BSJ Low Physical Activity"
 Usage: #example
-* insert ConditionPA(PractitionerAnitaChu, [[Anita Chu MD]], 2010-10-25)
-* evidence.detail = Reference(BSJ-PA-Support2)
-* evidence.detail = Reference(BSJ-PA-Support4)
+* insert ConditionPA(Practitioner-AnitaChu, [[Anita Chu MD]], 2010-10-25)
+* evidence.detail = Reference(BSJ-PA-EVS)
+* evidence.detail = Reference(BSJ-PA-Strength)
 
 Instance: BSJ-FatigueCondition
 InstanceOf: USCoreCondition
 Title:       "Condition - BSJ Fatigue"
 Description:  "BSJ Fatigue"
 Usage: #example
-* insert Condition(PractitionerAnitaChu, [[Anita Chu\, MD]], $ICD10#R53.0, [[Neoplastic (malignant) related fatigue]], 2022-09-18)
-* evidence.detail = Reference(BSJ-PA-Support5)
-// Paul - how is support 5 evidence for fatigue?
+* insert Condition(Practitioner-AnitaChu, [[Anita Chu\, MD]], $ICD10#R53.0, [[Neoplastic (malignant) related fatigue]], 2022-09-18)
+* evidence.detail = Reference(BSJ-PA-Fatigue)
 
 Instance:       BSJ-PA-AerobicGoal
 InstanceOf:     PAGoal
@@ -224,6 +267,51 @@ Description:    "BSJ-PA-StrengthGoal3"
 * insert NoteGP(2023-10-25, [[Goal due date is based on 12-week exercise oncology program]])
 * insert NoteGP(2023-12-18, [[Goal on hold due to stroke hospitalization]])
 * insert NoteGP(2024-01-24, [[Goal due date re-established for end of new 12-week exercise program]])
+
+Instance: BSJ-PA-Fatigue1
+InstanceOf: Observation
+Title:       "Second Fatigue"
+Description:  "BSJ Fatigue Score second assessment"
+Usage: #example
+* insert FatigueObs(2023-12-18, 20, "Fatigue")
+
+Instance: BSJ-PA-EVSdays2
+InstanceOf: PAObservationEVSDaysPerWeek
+Title:       "Final EVS Days"
+Description:  "BSJ Days/week final assessment"
+Usage: #example
+* insert DaysPerWeek(2024-01-24, 2)
+
+Instance: BSJ-PA-EVSmin2
+InstanceOf: PAObservationEVSMinutesPerDay
+Title:       "Final EVS Days"
+Description:  "BSJ Min/Day final assessment"
+Usage: #example
+* insert MinPerDay(2024-01-24, 30)
+
+Instance: BSJ-PA-EVS2
+InstanceOf: PAObservationEVSMinutesPerWeek
+Title:       "Initial EVS Minutes"
+Description:  "BSJ Minutes/week initial assessment"
+Usage: #example
+* insert MinPerWeek(2024-01-24, 60)
+* derivedFrom = Reference(BSJ-PA-EVSdays2)
+* derivedFrom = Reference(BSJ-PA-EVSmin2)
+
+Instance: BSJ-PA-Strength2
+InstanceOf: PAObservationStrengthDaysPerWeek
+Title:       "Final EVS Strength"
+Description:  "BSJ Strength/week final assessment"
+Usage: #example
+* insert StrengthPerWeek(2024-01-24, 2)
+
+Instance: BSJ-PA-Fatigue2
+InstanceOf: Observation
+Title:       "Final Fatigue"
+Description:  "BSJ Fatigue Score final assessment"
+Usage: #example
+* insert FatigueObs(2024-01-24, 28, "Fatigue")
+
 
 // High level observations
 Instance:       BSJ-PA-Support2
